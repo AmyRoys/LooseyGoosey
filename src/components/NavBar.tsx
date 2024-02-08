@@ -1,13 +1,11 @@
 import React from 'react';
-
+import '../styles/Navbar.css';
 const Navbar: React.FC = () => {
   return (
-    <nav>
+    <nav className='topbar'>
       <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="/login">Login</a></li>
+        <a href="/about">About</a>
+        <a href="/login">Login</a>
       </ul>
     </nav>
   );
