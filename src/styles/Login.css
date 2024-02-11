@@ -1,0 +1,24 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 200px;
+    box-sizing: border-box;
+}
+
+.text-content{
+    color:#f5f5dc ; 
+    font: 500 100px/2.0 "Lucita Console", Monaco, monospace;
+}
+
+
+.text-box{
+    padding: 5px;
+    width: 50%;
+    text-align: left;
+    line-height: 2.0;
+    font: 500 20px/2.0 "Lucita Console", Monaco, monospace;
+    margin: 10px;
+}
