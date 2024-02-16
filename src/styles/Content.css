@@ -2,15 +2,6 @@
   display:flex;
 }
 
-.text-content{
-  color:#f5f5dc;
-  text-align: left;
-  line-height: 2.0;
-  flex: 1; 
-  font: 500 20px/2.0 "Lucita Console", Monaco, monospace;
-  padding: 50px;
-  width: 100%;
-}
 .line1 {
   position: absolute;
   top: 100px; /* Adjust this value as needed */

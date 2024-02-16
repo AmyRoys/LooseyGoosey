@@ -1,24 +1,57 @@
-.container{
+.container {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    padding: 200px;
-    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    
 }
 
-.text-content{
-    color:#f5f5dc ; 
-    font: 500 100px/2.0 "Lucita Console", Monaco, monospace;
+.login-box {
+    border: 1px solid #000;
+    padding: 10px;
+    background-color: #ACE1AF; 
+    width: 300px;
+    border-radius: 10px;
+    top:25%; 
+    left: 35%; 
+    position: absolute;
+}
+.container-input {
+    display: block;
+    margin-bottom: 10px;
 }
 
+.text-login{
+    text-align: center;
+}
 
 .text-box{
     padding: 5px;
     width: 50%;
     text-align: left;
     line-height: 2.0;
-    font: 500 20px/2.0 "Lucita Console", Monaco, monospace;
     margin: 10px;
+    position: relative;
+    top: 50%; /* Position the text box in the middle of the container vertically */
+    left: 45%; /* Position the text box in the middle of the container horizontally */
+    transform: translate(-50%, -50%);
+}
+
+
+.plant2{
+    position: absolute;
+    right: 0;
+    top: 50px;
+    width: 400px;
+    height: auto;
+  }
+
+.plant3{
+    position: absolute;
+    left: 0;
+    top: 50px;
+    width: 400px;
+    height: auto;
 }
