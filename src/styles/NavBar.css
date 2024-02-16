@@ -1,0 +1,61 @@
+.topbar{
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #228B22;
+    overflow: visible;
+    height: 75px; 
+    z-index: 1;
+}
+.topbar a{
+    float: left;
+    display: block;
+    color: #f5f5dc;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    margin-right: 20px;	
+}
+.topbar a:hover{
+    color: #f6f6c0;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown > a {
+  display: block; 
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%; /* positions the submenu right below the parent link */
+  left: 0; /* aligns the submenu to the left of the parent link */
+  background-color: #228B22;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 2;
+}
+
+.dropdown:hover .submenu {
+  display: block;
+}
+ul li:hover .submenu {
+  display: block;
+}
+
+ul li ul li a:hover {
+  color: #f9f9f9; 
+}
+ul, .submenu {
+  list-style-type: none;
+}
+ul li {
+  display: inline-block;
+  position: relative;
+}
