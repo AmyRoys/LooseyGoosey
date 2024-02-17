@@ -11,7 +11,7 @@ const Navbar: React.FC = () => {
           <li className="dropdown">
             <Link to="/about">About</Link>
             <ul className="submenu">
-              <li><Link to="/about/upload">Upload</Link></li>
+              <li><Link to="/about/form">Form</Link></li>
             </ul>
           </li>
           <li><Link to="/login">Login</Link></li>

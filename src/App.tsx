@@ -4,7 +4,7 @@ import Footer from './components/Footer';
 import About from './components/About'; 
 import Login from './components/Login'; 
 import Content from './components/Content';
-import Upload from './components/Upload';
+import Form from './components/Form';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <NavBar/>
         <Routes>
           <Route path="/about" element={<About />} />
-            <Route path="/about/upload" element={<Upload/>} />
+            <Route path="/about/form" element={<Form/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Content />} />
         </Routes>

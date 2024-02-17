@@ -1,10 +1,10 @@
-import '../styles/Upload.css';
+import '../styles/Form.css';
 import plant4 from '../assets/plant4.png';
 import plant5 from '../assets/plant5.png';
 
 import React, { useState } from 'react';
 
-function Upload() {
+function Form() {
   const [message, setMessage] = useState('');
   const [file, setFile] = useState(null);
 
@@ -21,17 +21,23 @@ function Upload() {
     }
   };
 
+  const handleDownload = () => {
+   setMessage('File downloaded successfully');
+  }
   return (
     <div className='upload-container'>
         <div className='upload-box'>
             <div className='container-input'>
-                <h1 className='text-login'>Upload</h1>
+                <h1 className='text-login'>Plant Data</h1>
                 
                 <form onSubmit={handleUpload}>
                 <input type="file" onChange={handleFileChange} />
                 <button type="submit" className='upload-button'>Upload</button>
                 </form>
                 {message && <p>{message}</p>}
+            </div>
+            <div className='download'>
+              <button onClick ={handleDownload} id = 'download-button' className='download-button'>Download</button>
             </div>
             </div>
         <div>
@@ -45,4 +51,4 @@ function Upload() {
   );
 }
 
-export default Upload;
+export default Form;
