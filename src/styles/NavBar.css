@@ -22,6 +22,18 @@
     color: #f6f6c0;
 }
 
+.search{
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #f5f5dc;
+    background-color: #f5f5dc;
+
+}
+
 .dropdown {
   position: relative;
   display: inline-block;

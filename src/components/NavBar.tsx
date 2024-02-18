@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link , useNavigate} from 'react-router-dom';
 import '../styles/NavBar.css';
 
 const Navbar: React.FC = () => {
@@ -15,6 +15,11 @@ const Navbar: React.FC = () => {
             </ul>
           </li>
           <li><Link to="/login">Login</Link></li>
+          <li className='search'>
+            <input type="search" id="siteSearch" name="q"
+               aria-label="Search through site content"
+               placeholder="Search..."/>
+          </li>
         </ul>
       </nav>
     </header>
