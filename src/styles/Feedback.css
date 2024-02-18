@@ -1,4 +1,4 @@
-.container {
+.f-container{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,7 +7,7 @@
     padding: 0;
 }
 
-.login-box {
+.feedback-box{
     border: 1px solid #000;
     padding: 10px;
     background-color: #ACE1AF; 
@@ -17,29 +17,16 @@
     left: 35%; 
     position: absolute;
 }
-.container-input {
+.f-container-input{
     display: block;
     margin-bottom: 10px;
 }
 
-.text-login{
+.text-feedback{
     text-align: center;
 }
 
-.text-box{
-    padding: 5px;
-    width: 50%;
-    text-align: left;
-    line-height: 2.0;
-    margin: 10px;
-    position: relative;
-    top: 50%; /* Position the text box in the middle of the container vertically */
-    left: 45%; /* Position the text box in the middle of the container horizontally */
-    transform: translate(-50%, -50%);
-}
-
-
-.plant2{
+.plant6{
     position: absolute;
     right: 0;
     top: 50px;
@@ -47,7 +34,7 @@
     height: auto;
   }
 
-.plant3{
+.plant7{
     position: absolute;
     left: 0;
     top: 50px;

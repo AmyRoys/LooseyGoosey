@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link , useNavigate} from 'react-router-dom';
+import React from 'react';
+import { Link} from 'react-router-dom';
 import '../styles/NavBar.css';
 
 const Navbar: React.FC = () => {
@@ -12,6 +12,7 @@ const Navbar: React.FC = () => {
             <Link to="/about">About</Link>
             <ul className="submenu">
               <li><Link to="/about/form">Form</Link></li>
+              <li><Link to="/about/feedback">Feedback</Link></li>
             </ul>
           </li>
           <li><Link to="/login">Login</Link></li>
