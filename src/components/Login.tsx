@@ -11,7 +11,7 @@ const Login: React.FC = () => {
 const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email && password) {
-        setMessage('You are logged in');
+        alert('You are logged in!');
     } else {
         setMessage('Please enter email and password');
     }

@@ -17,7 +17,7 @@ const handleSubmit = (event) => {
     console.log(name, email, message);
 
     if (name && email && message) {
-        setSuccessMessage('Your feedback has been submitted successfully!');
+        alert('Your feedback has been submitted successfully!');
       }
     else {
         setSuccessMessage('Please fill in all the fields');

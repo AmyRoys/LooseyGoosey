@@ -15,14 +15,14 @@ function Form() {
   const handleUpload = (e: React.FormEvent) => {
     e.preventDefault();
     if (file) {
-      setMessage('File uploaded successfully');
+      alert('File uploaded successfully!');
     } else {
       setMessage('Please select a file to upload');
     }
   };
 
   const handleDownload = () => {
-   setMessage('File downloaded successfully');
+   alert('File downloaded successfully!');
   }
   return (
     <div className='upload-container'>
