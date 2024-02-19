@@ -1,0 +1,56 @@
+.a-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+
+.admin-box {
+    border: 1px solid #000;
+    padding: 10px;
+    background-color: #ACE1AF; 
+    width: 300px;
+    border-radius: 10px;
+    top:25%; 
+    left: 35%; 
+    position: absolute;
+}
+.a-input {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.text-admin{
+    text-align: center;
+}
+
+.admin-box{
+    padding: 5px;
+    width: 50%;
+    text-align: left;
+    line-height: 2.0;
+    margin: 10px;
+    position: relative;
+    top: 50%; /* Position the text box in the middle of the container vertically */
+    left: 45%; /* Position the text box in the middle of the container horizontally */
+    transform: translate(-50%, -50%);
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .table th,
+  .table td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #f2f2f2;
+  }

@@ -15,7 +15,11 @@ const Navbar: React.FC = () => {
               <li><Link to="/about/feedback">Feedback</Link></li>
             </ul>
           </li>
-          <li><Link to="/login">Login</Link></li>
+          <li><Link to="/login">Login</Link>
+          <ul className="submenu">
+              <li><Link to="/about/admin">Admin</Link></li>
+            </ul>
+          </li>
           <li className='search'>
             <input type="search" id="siteSearch" name="q"
                aria-label="Search through site content"
