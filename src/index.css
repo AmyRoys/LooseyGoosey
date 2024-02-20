@@ -28,21 +28,23 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  font-size: 1em; 
   background-color: #006400;
 }
 
 h1 {
    color:#f5f5dc;
    font: 600 90px/2.0 "Lucita Console", Monaco, monospace; 
-   font-size: 3.2em;
+   font-size: 3.9vw;
    line-height: 1.0;
+
 }
 
 button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1em;
-  font-size: 1em;
+  font-size: 1.2vw;
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
@@ -74,8 +76,21 @@ img {
     background-color: #f9f9f9;
   }
 }
-@media screen and (min-width: 768px) {
-  p {
-      font-size: 1em;
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 0.9em; /* Reduce font size */
+  }
+
+  img {
+    max-width: 80%; /* Reduce image width */
+  }
+}
+@media screen and (max-width: 480px) {
+  body {
+    font-size: 0.8em; /* Further reduce font size */
+  }
+
+  img {
+    max-width: 60%; /* Further reduce image width */
   }
 }

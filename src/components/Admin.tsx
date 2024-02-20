@@ -44,7 +44,7 @@ const Admin: React.FC = () => {
 
     return (
         <div className='a-container'>
-            <div className='login-box'>
+            <div className='a-box'>
                 <div className='a-input'>
                     <h1 className='text-admin'>Admin Page</h1>
                     <table className='table'>
