@@ -20,6 +20,7 @@
 .container-input {
     display: block;
     margin-bottom: 10px;
+    overflow: auto;
 }
 
 .text-login{
