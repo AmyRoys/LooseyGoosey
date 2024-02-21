@@ -33,7 +33,7 @@ body {
 }
 
 h1 {
-   color:#f5f5dc;
+   color:beige;
    font: 600 90px/2.0 "Lucita Console", Monaco, monospace; 
    font-size: 3.9vw;
    line-height: 1.0;
@@ -47,10 +47,11 @@ button {
   font-size: 1.2vw;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: beige;
   cursor: pointer;
   transition: border-color 0.25s;
   text-align: center;
+  color: black;
 }
 button:hover {
   border-color: #646cff;
