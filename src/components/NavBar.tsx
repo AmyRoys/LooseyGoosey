@@ -17,7 +17,9 @@ const Navbar: React.FC = () => {
           </li>
           <li><Link to="/login">Login</Link>
           <ul className="submenu">
-              <li><Link to="/login/admin">Admin</Link></li>
+              <li><Link to="/login/signup">Sign Up</Link></li>
+              <li><Link to="/login/alogin">Admin Login</Link></li>
+              <li><Link to="/login/admin">Admin MS</Link></li>
               <li><Link to="/login/CMS">CMS</Link></li>
             </ul>
           </li>

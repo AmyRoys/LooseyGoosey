@@ -3,7 +3,7 @@ import '../styles/Login.css';
 import plant2 from '../assets/plant2.png';
 import plant3 from '../assets/plant3.png';
 
-const Login: React.FC = () => {
+const SignUp: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -21,7 +21,7 @@ return(
     <div className='container'>
         <div className='login-box'>
             <div className = 'container-input'>
-                <h1 className='text-login'>Login Page</h1> 
+                <h1 className='text-login'>SignUp Page</h1> 
         
                 <form onSubmit={handleSubmit}>
                     <div>
@@ -32,7 +32,7 @@ return(
                     <button type="submit">Submit</button>
                     </div>
                     <div>
-                    <p>Don't have an account? <a href='/login/signup'>Sign Up Here!</a></p>
+                    <p>Already have an account? <a href='/login'>Login Here!</a></p>
                     </div>                
                 </form>
             <p className='message'>{message}</p>
@@ -48,4 +48,4 @@ return(
 )
 }
 
-export default Login;
+export default SignUp;
