@@ -21,7 +21,7 @@ return(
     <div className='container'>
         <div className='login-box'>
             <div className = 'container-input'>
-                <h1 className='text-login'>Login Page</h1> 
+                <h1 className='text-login'>Login</h1> 
         
                 <form onSubmit={handleSubmit}>
                     <div>

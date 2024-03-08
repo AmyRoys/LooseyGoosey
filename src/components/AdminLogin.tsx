@@ -7,11 +7,13 @@ const ALogin: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
 const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email && password) {
         alert('You are logged in!');
+        setIsSubmitted(true);
     } else {
         setMessage('Please enter email and password');
     }
@@ -36,6 +38,7 @@ return(
                     </div>                
                 </form>
             <p className='message'>{message}</p>
+            {isSubmitted && email && password && <a href="/login/cms">Go to CMS page</a>}
             </div>
         </div>
         <div>

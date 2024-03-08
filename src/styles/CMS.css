@@ -1,5 +1,85 @@
-.cms-box{
-    margin-top: 20px;
+.a-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 10%;
+    overflow: auto;
+    padding-bottom: 20%;
+}
+
+
+.a-box {
+    border: 1px solid #000;
+    padding: 1%;
+    background-color: #71BC78; 
+    width: 40%;
+    height: 50vh;
+    border-radius: 5%;
+    top: 25%; 
+    left: 30%; 
+    position: absolute;
+    overflow: auto;
+    padding: auto;
+}
+.a-input {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.text-admin{
+    text-align: center;
+}
+
+.admin-box{
+    padding: 5px;
     width: 50%;
-    height: auto;
+    text-align: left;
+    line-height: 2.0;
+    margin: 10px;
+    position: relative;
+    top: 50%; /* Position the text box in the middle of the container vertically */
+    left: 45%; /* Position the text box in the middle of the container horizontally */
+    transform: translate(-50%, -50%);
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    color: #000;
+  }
+  
+  .table th,
+  .table td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+    word-wrap: break-word;
+  }
+  
+  .table th {
+    background-color: #f2f2f2;
+  }
+
+.form-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #000; /* Change the color as needed */
+    padding: 20px; /* Adjust the padding as needed */
+    border-radius: 10px;
+  }
+.textarea{
+    width: 80%;
+}
+.drop-down{
+    width: 100%;
+    padding: 10px;
+    margin: 10px;
+    color: #f2f2f2;
+} 
+.h2{
+    color:#f2f2f2;
 }

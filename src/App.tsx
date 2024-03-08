@@ -6,8 +6,7 @@ import Login from './components/Login';
 import Content from './components/Content';
 import Form from './components/Form';
 import Feedback from './components/Feedback';
-import Admin from './components/Admin';
-import CMS from './components/CMS';
+import Admin from './components/CMS';
 import SignUp from './components/SignUp';
 import AdminLogin from './components/AdminLogin';
 
@@ -23,8 +22,7 @@ function App() {
           <Route path="/login" element={<Login />} />
             <Route path="/login/signup" element={<SignUp/>} />
             <Route path="/login/alogin" element={<AdminLogin/>} />
-            <Route path="/login/admin" element={<Admin/>} />
-            <Route path="/login/CMS" element={<CMS/>} />
+            <Route path="/login/cms" element={<Admin/>} />
           <Route path="/" element={<Content />} />
         </Routes>
         <Footer/>
