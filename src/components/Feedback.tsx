@@ -11,7 +11,7 @@ const Feedback: React.FC = () => {
     const [successMessage, setSuccessMessage] = useState('');
 
 
-const handleSubmit = (event) => {
+const handleSubmit = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     // Handle the form submission here
     console.log(name, email, message);

@@ -8,7 +8,7 @@ function Form() {
   const [message, setMessage] = useState('');
   const [file, setFile] = useState(null);
 
-  const handleFileChange = (event) => {
+  const handleFileChange = (event: { target: { files: React.SetStateAction<null>[]; }; }) => {
     setFile(event.target.files[0]);
   };
 
