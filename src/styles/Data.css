@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* This makes the container take up the full viewport height */
+  }
+
+.myTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 80px; /* Adjust this value as needed */
+  }
+  .myTable th {
+    background-color: #EADDCA;
+    color: black;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .myTable td {
+    padding: 10px;
+    text-align: left;
+    background-color: #F5F5DC;
+  }
