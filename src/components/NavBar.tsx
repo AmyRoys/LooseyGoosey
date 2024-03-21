@@ -31,6 +31,9 @@ const Navbar: React.FC = () => {
         case 'admin login':
           navigate('/login/alogin');
           break;
+        case 'data':
+          navigate('/about/data');
+          break;
         // Add more cases as needed
         default:
           break;
@@ -48,6 +51,7 @@ const Navbar: React.FC = () => {
             <ul className="submenu">
               <li><Link to="/about/form">Form</Link></li>
               <li><Link to="/about/feedback">Feedback</Link></li>
+              <li><Link to="/about/data">Plant Data</Link></li>
             </ul>
           </li>
           <li><Link to="/login">Login</Link>

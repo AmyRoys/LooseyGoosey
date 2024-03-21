@@ -9,6 +9,7 @@ import Feedback from './components/Feedback';
 import Admin from './components/CMS';
 import SignUp from './components/SignUp';
 import AdminLogin from './components/AdminLogin';
+import DataContent from './components/Data';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/about" element={<About />} />
             <Route path="/about/form" element={<Form/>} />
             <Route path="/about/feedback" element={<Feedback/>} />
+            <Route path="/about/data" element={<DataContent/>} />
           <Route path="/login" element={<Login />} />
             <Route path="/login/signup" element={<SignUp/>} />
             <Route path="/login/alogin" element={<AdminLogin/>} />
