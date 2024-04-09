@@ -1,6 +1,4 @@
 import "../styles/CMS.css";
-import plant8 from "../assets/plant8.png";
-import plant9 from "../assets/plant9.png";
 import React, { useState } from "react";
 
 interface User {
@@ -205,12 +203,6 @@ const CMS: React.FC = () => {
             <button onClick={handleSubmit}>Submit</button>
           </div>
         </div>
-      </div>
-      <div>
-        <img src={plant8} alt="plant2" className="plant2" />
-      </div>
-      <div>
-        <img src={plant9} alt="plant3" className="plant3" />
       </div>
     </div>
   );

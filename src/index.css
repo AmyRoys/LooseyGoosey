@@ -29,15 +29,14 @@ body {
   min-width: 320px;
   min-height: 100vh;
   font-size: 1em; 
-  background-color: #006400;
+  background-color: #f5f5e9;
 }
 
-h1 {
-   color:beige;
-   font: 600 90px/2.0 "Lucita Console", Monaco, monospace; 
-   font-size: 3.9vw;
-   line-height: 1.0;
-
+@font-face {
+  font-family: 'GooseCowboy';
+  src: url('/public/west.TTF') format('truetype'); 
+  font-weight: normal; 
+  font-style: normal;
 }
 
 button {

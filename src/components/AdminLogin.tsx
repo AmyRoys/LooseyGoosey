@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import '../styles/Login.css';
-import plant2 from '../assets/plant2.png';
-import plant3 from '../assets/plant3.png';
 
 const ALogin: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -41,12 +39,7 @@ return(
             {isSubmitted && email && password && <a href="/login/cms">Go to CMS page</a>}
             </div>
         </div>
-        <div>
-            <img src={plant2} alt='plant2' className='plant2'/>
-        </div>
-        <div>
-            <img src={plant3} alt='plant3' className='plant3'/>
-        </div>
+
     </div>
 )
 }

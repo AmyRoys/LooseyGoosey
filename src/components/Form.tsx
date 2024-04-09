@@ -1,6 +1,4 @@
 import '../styles/Form.css';
-import plant4 from '../assets/plant4.png';
-import plant5 from '../assets/plant5.png';
 import React, { useState } from 'react';
 
 
@@ -41,12 +39,7 @@ function Form() {
               <button onClick ={handleDownload} id = 'download-button' className='download-button'>Download</button>
             </div>
             </div>
-        <div>
-            <img src={plant4} alt='plant2' className='plant2'/>
-        </div>
-        <div>
-            <img src={plant5} alt='plant3' className='plant3'/>
-        </div>
+       
     </div>
 
   );

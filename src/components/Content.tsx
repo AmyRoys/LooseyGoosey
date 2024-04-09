@@ -1,17 +1,14 @@
 import '../styles/Content.css'; 
-import plant from '../assets/plant.png';
+import Goose from '../assets/images/goose.png';
 
 const Content = () => {
     return (
         <div className='content'>
             <div className= 'text-content'>
-                <h1 className="line1">Your Garden,</h1>
-                <h1 className="line2">Your Food,</h1>
-                <h1 className="line3">Our Help.</h1>
+                <h1 className="heading">Loosey Goosey</h1>
             </div>
-            <div className= 'image-content'>
-                <img src={plant} alt='plant' className= 'plant'/>
-            </div>
+        <img className = 'goose' src ={Goose} >
+        </img>
         </div>
     );
 

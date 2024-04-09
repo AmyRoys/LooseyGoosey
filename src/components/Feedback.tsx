@@ -1,7 +1,5 @@
 import '../styles/Feedback.css';        
 import React, { useState } from 'react';
-import plant6 from '../assets/plant6.png';
-import plant7 from '../assets/plant7.png';
 
 const Feedback: React.FC = () => {
 
@@ -42,12 +40,6 @@ return (
                 <p className='success-message'>{successMessage}</p>
             </div>
         </div> 
-        <div>
-            <img src={plant6} alt='plant6' className='plant6'/>
-        </div>
-        <div>
-            <img src={plant7} alt='plant7' className='plant7'/>
-        </div>
     </div>
   );
 };
