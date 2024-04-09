@@ -1,37 +1,22 @@
 .content {
-  display:flex;
+  display: flex;
   flex-wrap: wrap;
   grid-auto-flow: row;
+  justify-content: center; /* Centers children horizontally */
+  align-items: flex-start; /* Aligns children to the start vertically */
 }
 
-.line1 {
-  position: absolute;
-  top: 17%; /* Adjust this value as needed */
-  left: 17%; /* Adjust this value as needed */
-  padding: 1%; 
+.heading {
+  padding-left: 20%;
+  width: 100%;
+  font-family:'GooseCowboy';
+  color: #654321;
+  font-size: 7em;
+  text-align: center; /* Centers the text within the heading */
 }
-
-.line2 {
-  position: absolute;
-  top: 35%; /* Adjust this value as needed */
-  left: 25%;/* Adjust this value as needed */
-  padding: 1.5%;
-}
-
-.line3 {
-  position: absolute;
-  top: 55%; /* Adjust this value as needed */
-  left: 35%; /* Adjust this value as needed */
-  padding: 2%;
-}
-.image-content{
-  flex: 1;
-}
-
-.plant{
-  position: absolute;
-  right: 5%;
-  top: 5%;
-  width: 35%;
+.goose {
+  width: 25%;
   height: auto;
+  padding-left: 20%;
+  
 }
