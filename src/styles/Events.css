@@ -1,0 +1,53 @@
+.h{
+    font-size: 5rem;
+    font-weight: bold;
+    text-align:center; 
+    width: 100%;
+    font-family:'GooseCowboy';
+    color: #654321;
+    text-align: center;
+  }
+  
+.datetime{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    line-height: 1;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    overflow-y: auto;
+}
+
+.event {
+    position: relative;
+    border: 5px solid #cc840f;
+    padding: 10px;
+    margin: 10px;
+    align-items: center;
+    color: #654321;
+    background-color: #ffe0ae;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+    transition: box-shadow 0.3s ease-in-out;
+}
+  
+.geese {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%; 
+    width: 50%;
+    object-fit: contain; 
+}
+
+.button{
+    width: 40%;
+    height: 10%;
+    font-size: 1.5em;
+    background-color: #f3af43;
+}
