@@ -1,14 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
-import About from './components/About'; 
-import Login from './components/Login'; 
+import Balance from './components/Balance'; 
 import Content from './components/Content';
-import Form from './components/Form';
-import Feedback from './components/Feedback';
-import Admin from './components/CMS';
-import SignUp from './components/SignUp';
-import AdminLogin from './components/AdminLogin';
+import Transfer from './components/Transfer';
+import Wallet from './components/Wallet';
+import Events from './components/Events';
 
 function App() {
   return (
@@ -16,13 +13,10 @@ function App() {
       <div>
         <NavBar/>
         <Routes>
-          <Route path="/about" element={<About />} />
-            <Route path="/about/form" element={<Form/>} />
-            <Route path="/about/feedback" element={<Feedback/>} />
-          <Route path="/login" element={<Login />} />
-            <Route path="/login/signup" element={<SignUp/>} />
-            <Route path="/login/alogin" element={<AdminLogin/>} />
-            <Route path="/login/cms" element={<Admin/>} />
+          <Route path="/balance" element={<Balance />} />
+            <Route path="/events" element={<Events/>} />
+            <Route path="/transfer" element={<Transfer/>} />
+            <Route path="/wallet" element={<Wallet/>} />
           <Route path="/" element={<Content />} />
         </Routes>
         <Footer/>

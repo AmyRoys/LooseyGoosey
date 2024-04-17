@@ -18,10 +18,10 @@ const Navbar: React.FC = () => {
           </li>
 
         <li className= "navbar-right">
-          <Link to="/about">Balance</Link>
-          <Link to="/about">Events</Link>
-          <Link to="/about">Transfer</Link>
-          <Link className='login' to="/about">Wallet</Link>
+          <Link to="/balance">Balance</Link>
+          <Link to="/events">Events</Link>
+          <Link to="/transfer">Transfer</Link>
+          <Link className='wallet' to="/wallet">Wallet</Link>
         </li>
           
         </ul>
