@@ -6,6 +6,7 @@ const Transfer: React.FC = () => {
 
 return(
     <div >
+         <h1 className = 'h'>Transfer</h1>
     </div>
 )
 }

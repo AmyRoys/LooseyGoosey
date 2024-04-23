@@ -1,0 +1,9 @@
+.wbutton{
+    width: 50%;
+    height: 10%;
+    font-size: 1.5em;
+    background-color: #f3af43;
+    display: flex; /* Add this line */
+    justify-content: center; /* Add this line */
+    align-items: center; /* Add this line */
+}
