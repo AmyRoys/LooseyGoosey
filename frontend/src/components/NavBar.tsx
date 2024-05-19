@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link} from 'react-router-dom';
 import '../styles/NavBar.css';
-import gooseHead from '../assets/images/gooseHead.png';
+import gooseHead from '../assets/goosehead.png';
 
 
 const Navbar: React.FC = () => {

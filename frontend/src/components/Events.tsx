@@ -1,5 +1,5 @@
 import '../styles/Events.css';
-import Goose from '../assets/images/sillygeese.png';
+import Goose from '../assets/sillygeese.png';
 import { Button } from 'react-bootstrap';
 
 function Events() {

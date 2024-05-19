@@ -20,6 +20,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src", "frontend/src/components/Balance.tsx", "frontend/src/components/Content.tsx", "frontend/src/components/Events.tsx", "frontend/src/components/Footer.tsx", "frontend/src/components/NavBar.tsx", "frontend/src/components/Transfer.tsx", "frontend/src/components/Wallet.tsx", "frontend/src/App.tsx", "frontend/src/main.tsx", "src/declaration.d.ts"],
 }

@@ -1,5 +1,6 @@
 import '../styles/Content.css'; 
-import Goose from '../assets/images/goose.png';
+import Goose from '../assets/goose.png';
+
 
 const Content = () => {
     return (
