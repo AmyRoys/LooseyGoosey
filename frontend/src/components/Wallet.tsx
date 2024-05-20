@@ -1,7 +1,15 @@
 import "../styles/Wallet.css";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import Web3 from "web3";
 import { saveAs } from "file-saver";
+
+let web3 : Web3;
+
+declare global {
+  interface Window {
+    ethereum: any;
+  }
+}
 
 const CreateWallet: React.FC = () => {
   const [createPassword, setCreatePassword] = useState("");
@@ -12,29 +20,50 @@ const CreateWallet: React.FC = () => {
   const [keystore, setKeystore] = useState<string | null>(null);
   const [uploadedKeystore, setUploadedKeystore] = useState<File | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [balance, setBalance] = useState("");
+
+  useEffect(() => {
+    const connectMetamask = async () => {
+      if (window.ethereum) {
+        try {
+          // Request account access
+          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+          if (accounts.length === 0) {
+            console.error("No accounts found. Please make sure you're logged in to MetaMask.");
+          } else {
+            web3 = new Web3(window.ethereum);
+          }
+        } catch (error) {
+          console.error("User denied account access:", error);
+          web3 = new Web3();
+        }
+      } else {
+        console.error("MetaMask is not installed.");
+        web3 = new Web3();
+      }
+    };
+
+    connectMetamask();
+  }, []);
 
   const handleCreateWallet = async () => {
+
     if (createPassword === "") {
       alert("Please enter a password for the Key Store");
       return;
     }
 
-    const web3 = new Web3();
-    console.log("web instance", web3);
     const wallet = web3.eth.accounts.create();
-    console.log("wallet", wallet);
 
     setCreateAddress(wallet.address);
     setPrivateKey(wallet.privateKey);
-    console.log("Private Key:", wallet.privateKey);
-    console.log("Password:", createPassword);
 
     const encryptedKeystore = await web3.eth.accounts.encrypt(
       wallet.privateKey,
       createPassword
     );
     setKeystore(JSON.stringify(encryptedKeystore));
-    console.log("encrypted keystore:", encryptedKeystore);
+
     alert("Wallet created successfully");
   };
 
@@ -56,31 +85,30 @@ const CreateWallet: React.FC = () => {
   };
 
   const handleLoadWallet = () => {
-    if (!uploadedKeystore) {
-      alert("Please upload a keystore file");
-      return;
-    }
-
-    if (loadPassword === "") {
-      alert("Please enter the password for the Key Store");
+    if (loadPassword === "" || uploadedKeystore === null) {
+      alert("Please upload a Key Store and enter the password.");
       return;
     }
 
     const reader = new FileReader();
     reader.onload = async (event) => {
       const keystoreContent = event.target?.result as string;
-      console.log("Keystore Content:", keystoreContent);
+
       try {
-        const web3 = new Web3();
         const decryptedWallet = await web3.eth.accounts.decrypt(
           JSON.parse(keystoreContent),
           loadPassword
         );
-        console.log("Decrypted Wallet", decryptedWallet);
+
         setLoadAddress(decryptedWallet.address);
         setPrivateKey(decryptedWallet.privateKey);
         setKeystore(keystoreContent);
         alert("Wallet loaded successfully");
+
+        const balanceWei = await web3.eth.getBalance(decryptedWallet.address);
+        const balanceEth = web3.utils.fromWei(balanceWei, "ether");
+        setBalance(balanceEth);
+
       } catch (error) {
         console.error("Decryption failed:", error);
         alert(
@@ -103,7 +131,7 @@ const CreateWallet: React.FC = () => {
           type="password"
           value={createPassword}
           onChange={(e) => setCreatePassword(e.target.value)}
-          placeholder="Enter a password for the Key Store"
+          placeholder="Key Store Password"
         />
         <br />
         <br />
@@ -163,7 +191,7 @@ const CreateWallet: React.FC = () => {
           type="password"
           value={loadPassword}
           onChange={(e) => setLoadPassword(e.target.value)}
-          placeholder="Enter the password for the Key Store"
+          placeholder="Key Store Password"
         />
         <br />
         <br />
@@ -180,6 +208,16 @@ const CreateWallet: React.FC = () => {
               rows={5}
               cols={50}
               value={loadAddress}
+              readOnly
+            />
+            <br />
+            <label htmlFor="loadedWalletBalance">Wallet Balance:</label>
+            <br />
+            <textarea
+              id="loadedWalletBalance"
+              rows={5}
+              cols={50}
+              value={balance}
               readOnly
             />
             <br />
