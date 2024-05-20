@@ -1,14 +1,12 @@
-import '../styles/Transfer.css';
 import React, { useState } from "react";
 import Web3 from "web3";
-//import TicketToken from "./TicketToken.json"; // ABI file from the compiled contract
+import TicketToken from "./TicketToken.json"; // ABI file from the compiled contract
 
-const TransferTicketPage: React.FC = () => {
+const BuyTicketPage: React.FC = () => {
   const [amount, setAmount] = useState(0);
-  const [recipient, setRecipient] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleTransferTicket = async () => {
+  const handleBuyTicket = async () => {
     if (window.ethereum) {
       const web3 = new Web3(window.ethereum);
       const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
@@ -16,37 +14,35 @@ const TransferTicketPage: React.FC = () => {
       const ticketToken = new web3.eth.Contract(TicketToken.abi, contractAddress);
 
       try {
-        await ticketToken.methods.transferTicket(recipient, amount).send({
+        const ticketPriceInWei = await ticketToken.methods.ticketPriceInWei().call();
+        const totalCost = ticketPriceInWei * amount;
+
+        await ticketToken.methods.purchaseTicket(amount).send({
           from: accounts[0],
+          value: totalCost,
         });
 
-        setMessage("Ticket transferred successfully!");
+        setMessage("Ticket purchased successfully!");
       } catch (error) {
-        console.error("Error transferring ticket:", error);
-        setMessage("Error transferring ticket.");
+        console.error("Error purchasing ticket:", error);
+        setMessage("Error purchasing ticket.");
       }
     }
   };
 
   return (
     <div>
-      <h1 className='h'>Transfer Ticket</h1>
-      <input
-        type="text"
-        value={recipient}
-        onChange={(e) => setRecipient(e.target.value)}
-        placeholder="Recipient address"
-      />
+      <h1 className="h">Tickets</h1>
       <input
         type="number"
         value={amount}
         onChange={(e) => setAmount(parseInt(e.target.value))}
         placeholder="Number of tickets"
       />
-      <button onClick={handleTransferTicket}>Transfer Ticket</button>
+      <button onClick={handleBuyTicket}>Buy Ticket</button>
       {message && <p>{message}</p>}
     </div>
   );
 };
 
-export default TransferTicketPage;
+export default BuyTicketPage;

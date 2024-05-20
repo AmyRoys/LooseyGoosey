@@ -41,6 +41,8 @@ const CreateWallet: React.FC = () => {
         console.error("MetaMask is not installed.");
         web3 = new Web3();
       }
+    // const loadedPrivateKey = getPrivateKey();
+    // setPrivateKey(loadedPrivateKey);
     };
 
     connectMetamask();
