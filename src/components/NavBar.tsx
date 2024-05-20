@@ -18,7 +18,7 @@ const Navbar: React.FC = () => {
           </li>
 
         <li className= "navbar-right">
-          <Link to="/balance">Balance</Link>
+          {/* <Link to="/balance">Balance</Link> */}
           <Link to="/events">Events</Link>
           <Link to="/transfer">Transfer</Link>
           <Link className='wallet' to="/wallet">Wallet</Link>

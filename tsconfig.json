@@ -20,5 +20,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "frontend/src/components/Balance.tsx", "frontend/src/components/Content.tsx", "frontend/src/components/Events.tsx", "frontend/src/components/Footer.tsx", "frontend/src/components/NavBar.tsx", "frontend/src/components/Transfer.tsx", "frontend/src/components/Wallet.tsx", "frontend/src/App.tsx", "frontend/src/main.tsx", "src/declaration.d.ts"],
+  "include": ["src", "src/components/Balance.tsx", "src/components/Content.tsx", "src/components/Events.tsx", "src/components/Footer.tsx", "src/components/NavBar.tsx", "src/components/Transfer.tsx", "src/components/Wallet.tsx", "src/App.tsx", "src/main.tsx", "src/declaration.d.ts", "tsconfig.json"],
 }
