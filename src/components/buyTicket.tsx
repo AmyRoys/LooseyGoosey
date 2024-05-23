@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react';
 import Web3 from 'web3';
 import Tickets from '../artifacts/Tickets.json';
 
-const BuyTicket = ({ account }) => {
+const BuyTicket = ({ account }: { account: string }) => {
   const [message, setMessage] = useState('');
-  const [contract, setContract] = useState(null);
+  const [contract, setContract] = useState<any | null>(null);
   const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
 
   const CONTRACT_ADDRESS = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
+  
 
   useEffect(() => {
     const loadContract = async () => {
