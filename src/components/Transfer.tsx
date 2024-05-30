@@ -6,6 +6,7 @@ import Tickets from '../artifacts/Tickets.json'; // ABI file from the compiled c
 const TransferTicketPage: React.FC = () => {
   const [amount, setAmount] = useState(0);
   const [recipient, setRecipient] = useState("");
+  const [sender, setSender] = useState("");
   const [message, setMessage] = useState("");
 
   const handleTransferTicket = async () => {
@@ -32,10 +33,17 @@ const TransferTicketPage: React.FC = () => {
     <div>
       <h1 className='h'>Transfer Ticket</h1>
       <input
+      type ="text"
+      value= {sender}
+      onChange = {(e) => setSender(e.target.value)}
+      placeholder= "Sending from"
+      
+      />
+      <input
         type="text"
         value={recipient}
         onChange={(e) => setRecipient(e.target.value)}
-        placeholder="Recipient address"
+        placeholder="Sending to"
       />
       <input
         type="number"
@@ -43,7 +51,7 @@ const TransferTicketPage: React.FC = () => {
         onChange={(e) => setAmount(parseInt(e.target.value))}
         placeholder="Number of tickets"
       />
-      <button onClick={handleTransferTicket}>Transfer Ticket</button>
+      <button className = 'wbutton' onClick={handleTransferTicket}>Transfer Ticket</button>
       {message && <p>{message}</p>}
     </div>
   );
