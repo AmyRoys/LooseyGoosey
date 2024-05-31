@@ -5,11 +5,11 @@ import Tickets from "../artifacts/Tickets.json";
 const BuyTicket = ({ account }: { account?: string }) => {
   const [message, setMessage] = useState("");
   const [contract, setContract] = useState<any | null>(null);
-  const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+  const web3 = new Web3(Web3.givenProvider || "https://sepolia.infura.io/v3/c38025e078f74cf99667aa3fa5268998");
   const [ticketPriceInWei, setTicketPriceInWei] = useState<number | null>(null);
   const [balance, setBalance] = useState<number | null>(null);
 
-  const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+  const CONTRACT_ADDRESS = "0x91095556e20D1343ba3F6C9838EBDF65e90cF158";
 
   const checkBalance = async () => {
     if (account && contract) {

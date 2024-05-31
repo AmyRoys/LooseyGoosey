@@ -13,7 +13,7 @@ const TransferTicketPage: React.FC = () => {
     if (window.ethereum) {
       const web3 = new Web3(window.ethereum);
       const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-      const contractAddress = "YOUR_CONTRACT_ADDRESS"; 
+      const contractAddress = "0x91095556e20D1343ba3F6C9838EBDF65e90cF158"; 
       const ticketToken = new web3.eth.Contract(Tickets.abi, contractAddress);
 
       try {

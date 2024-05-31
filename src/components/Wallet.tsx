@@ -69,7 +69,38 @@ const CreateWallet: React.FC = () => {
     );
     setKeystore(JSON.stringify(encryptedKeystore));
 
-    alert("Wallet created successfully");
+    const sendingAccount = web3.eth.accounts.privateKeyToAccount(
+      "0x52b7ff963067c53efe60f15a4bb1266c512759bbbe076956db71099597f6538f"
+    );
+    web3.eth.accounts.wallet.add(sendingAccount);
+
+    console.log("Sending account address:", sendingAccount.address);
+    console.log("New wallet address:", wallet.address);
+
+    web3.eth
+      .getBalance(sendingAccount.address)
+      .then((balance) => {
+        console.log(
+          "Sending account balance:",
+          web3.utils.fromWei(balance, "ether")
+        );
+      })
+      .catch((error) => {
+        console.error("Error getting balance:", error);
+      });
+    web3.eth
+      .sendTransaction({
+        from: sendingAccount.address,
+        to: wallet.address,
+        value: web3.utils.toWei("0.0000000000000000000001", "ether"),
+      })
+      .then((receipt) => {
+        console.log(receipt);
+        alert("Wallet created successfully with a balance of 0.000000000001");
+      })
+      .catch((error) => {
+        console.error("Error sending transaction:", error);
+      });
   };
 
   const handleDownloadKeystore = () => {
@@ -136,7 +167,7 @@ const CreateWallet: React.FC = () => {
           placeholder="Key Store Password"
           className="input"
         />
-         <button className="wbutton" onClick={handleCreateWallet}>
+        <button className="wbutton" onClick={handleCreateWallet}>
           Create Wallet
         </button>
         <br />
@@ -250,9 +281,6 @@ const CreateWallet: React.FC = () => {
             />
             <br />
             <br />
-            <button className="wbutton" onClick={handleDownloadKeystore}>
-              Download Keystore
-            </button>
           </>
         )}
         {errorMessage && (
