@@ -185,7 +185,7 @@
       ]
     },
     "C:\\Users\\PC\\OneDrive - University of Limerick\\2nd Year\\CS4445-HCC\\Dev\\repos\\Blockchain\\contracts\\Tickets.sol": {
-      "lastModificationDate": 1716412356443,
+      "lastModificationDate": 1717154985553,
       "contentHash": "2609c2b173b02dd1a1deee681dffb063",
       "sourceName": "contracts/Tickets.sol",
       "solcConfig": {
@@ -220,44 +220,6 @@
       ],
       "artifacts": [
         "Tickets"
-      ]
-    },
-    "C:\\Users\\PC\\OneDrive - University of Limerick\\2nd Year\\CS4445-HCC\\Dev\\repos\\Blockchain\\contracts\\TicketToken.sol": {
-      "lastModificationDate": 1716412190313,
-      "contentHash": "943e0971de14cc0837e59fa46682477e",
-      "sourceName": "contracts/TicketToken.sol",
-      "solcConfig": {
-        "version": "0.8.4",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        "@openzeppelin/contracts/access/Ownable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "TicketToken"
       ]
     }
   }
