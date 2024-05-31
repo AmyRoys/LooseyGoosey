@@ -8,6 +8,7 @@ import Transfer from './components/Transfer';
 import Wallet from './components/Wallet';
 import Events from './components/Events';
 import BuyTicket from './components/buyTicket';
+import Balance from './components/Balance';
 
 const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
 
@@ -36,6 +37,7 @@ const App = () => {
         <Routes>
           {/* <Route path="/balance" element={<Balance />} /> */}
             <Route path="/events" element={<Events/>} />
+            <Route path ="/balance" element={<Balance/>}/>
             <Route path="/buyTicket" element={account ? <BuyTicket account={account} /> : <div>Loading...</div>} />
             <Route path="/transfer" element={<Transfer/>} />
             <Route path="/wallet" element={<Wallet/>} />

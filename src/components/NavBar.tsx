@@ -19,6 +19,7 @@ const Navbar: React.FC = () => {
 
         <li className= "navbar-right">
           <Link to="/events">Events</Link>
+          <Link to ="/balance">Balance</Link>
           <Link to="/transfer">Transfer</Link>
           <Link className='wallet' to="/wallet">Wallet</Link>
         </li>
