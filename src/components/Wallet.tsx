@@ -3,7 +3,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import Web3 from "web3";
 import { saveAs } from "file-saver";
 
-let web3 : Web3;
+let web3: Web3;
 
 declare global {
   interface Window {
@@ -18,6 +18,8 @@ const CreateWallet: React.FC = () => {
   const [loadAddress, setLoadAddress] = useState<string | null>(null);
   const [privateKey, setPrivateKey] = useState<string | null>(null);
   const [keystore, setKeystore] = useState<string | null>(null);
+  const [loadedPrivateKey, setLoadedPrivateKey] = useState<string | null>(null);
+  const [loadedKeystore, setLoadedKeystore] = useState<string | null>(null);
   const [uploadedKeystore, setUploadedKeystore] = useState<File | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [balance, setBalance] = useState("");
@@ -27,9 +29,13 @@ const CreateWallet: React.FC = () => {
       if (window.ethereum) {
         try {
           // Request account access
-          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+          const accounts = await window.ethereum.request({
+            method: "eth_requestAccounts",
+          });
           if (accounts.length === 0) {
-            console.error("No accounts found. Please make sure you're logged in to MetaMask.");
+            console.error(
+              "No accounts found. Please make sure you're logged in to MetaMask."
+            );
           } else {
             web3 = new Web3(window.ethereum);
           }
@@ -41,15 +47,12 @@ const CreateWallet: React.FC = () => {
         console.error("MetaMask is not installed.");
         web3 = new Web3();
       }
-    // const loadedPrivateKey = getPrivateKey();
-    // setPrivateKey(loadedPrivateKey);
     };
 
     connectMetamask();
   }, []);
 
   const handleCreateWallet = async () => {
-
     if (createPassword === "") {
       alert("Please enter a password for the Key Store");
       return;
@@ -103,14 +106,13 @@ const CreateWallet: React.FC = () => {
         );
 
         setLoadAddress(decryptedWallet.address);
-        setPrivateKey(decryptedWallet.privateKey);
-        setKeystore(keystoreContent);
+        setLoadedPrivateKey(decryptedWallet.privateKey);
+        setLoadedKeystore(JSON.stringify(decryptedWallet));
         alert("Wallet loaded successfully");
 
         const balanceWei = await web3.eth.getBalance(decryptedWallet.address);
         const balanceEth = web3.utils.fromWei(balanceWei, "ether");
         setBalance(balanceEth);
-
       } catch (error) {
         console.error("Decryption failed:", error);
         alert(
@@ -125,16 +127,18 @@ const CreateWallet: React.FC = () => {
     <div>
       <h1 className="h">Wallet</h1>
       <div className="event">
-        <button className="wbutton" onClick={handleCreateWallet}>
-          Create Wallet
-        </button>
+        <h2>Create Wallet</h2>
         <br />
         <input
           type="password"
           value={createPassword}
           onChange={(e) => setCreatePassword(e.target.value)}
           placeholder="Key Store Password"
+          className="input"
         />
+         <button className="wbutton" onClick={handleCreateWallet}>
+          Create Wallet
+        </button>
         <br />
         <br />
 
@@ -186,7 +190,7 @@ const CreateWallet: React.FC = () => {
             </button>
           </>
         )}
-        <h2>Load Wallet</h2>
+        <h2>Decrypt Wallet</h2>
         <input type="file" onChange={handleFileChange} />
         <br />
         <input
@@ -194,35 +198,61 @@ const CreateWallet: React.FC = () => {
           value={loadPassword}
           onChange={(e) => setLoadPassword(e.target.value)}
           placeholder="Key Store Password"
+          className="input"
         />
         <br />
         <br />
         <button className="wbutton" onClick={handleLoadWallet}>
-          Load Wallet
+          Decrypt Wallet
         </button>
+
         {loadAddress && (
           <>
-            <h2>Loaded Wallet Info</h2>
+            <h2>Decrypted Wallet Info</h2>
             <label htmlFor="loadedWalletAddress">Wallet Address:</label>
             <br />
             <textarea
-              id="loadedWalletAddress"
+              id="loadedWallet"
               rows={5}
               cols={50}
               value={loadAddress}
               readOnly
             />
             <br />
-            <label htmlFor="loadedWalletBalance">Wallet Balance:</label>
+          </>
+        )}
+
+        {loadedPrivateKey && (
+          <>
+            <label htmlFor="loadedPrivateKey">Private Key:</label>
             <br />
             <textarea
-              id="loadedWalletBalance"
+              id="loadedPrivateKey"
               rows={5}
               cols={50}
-              value={balance}
+              value={loadedPrivateKey}
               readOnly
             />
             <br />
+          </>
+        )}
+
+        {loadedKeystore && (
+          <>
+            <label htmlFor="loadedKeystore">Keystore File:</label>
+            <br />
+            <textarea
+              id="loadedKeystore"
+              rows={5}
+              cols={50}
+              value={loadedKeystore}
+              readOnly
+            />
+            <br />
+            <br />
+            <button className="wbutton" onClick={handleDownloadKeystore}>
+              Download Keystore
+            </button>
           </>
         )}
         {errorMessage && (

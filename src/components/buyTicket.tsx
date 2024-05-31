@@ -43,11 +43,14 @@ const BuyTicket = ({ account }: { account?: string }) => {
         from: account,
         gasPrice: gasPrice,
         gas: gasEstimate,
-        value: ticketPriceInWei,
+        value: ticketPriceInWei, 
       });
-
+      const tx = await contract.methods.purchaseTicket({ from: account, value: ticketPriceInWei });
+      const receipt = await tx.send();
+      console.log(receipt); 
       setMessage("Ticket purchased successfully!");
       checkBalance();
+
     } catch (error) {
       console.error(error);
     }
