@@ -4,4 +4,4 @@
 ####  - Ethereum Sepolia Testnet for Solidity smart contract deployment
 #### - Typescript React for the frontend
 
-Contract: https://sepolia.etherscan.io/address/0x91095556e20D1343ba3F6C9838EBDF65e90cF158 
+Contract: https://etherscan.io/address/0xfbd649AA4C186B46d056164D12848eB8111683F6
