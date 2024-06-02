@@ -2,15 +2,17 @@ import "../styles/Balance.css";
 import React, { useState } from "react";
 import Web3 from "web3";
 import { isAddress } from "web3-utils";
+import Tickets from "../artifacts/Tickets.json";
 
 const Balance: React.FC = () => {
-  const [address, setAddress] = useState("");
+  const [walletAddress, setWalletAddress] = useState("");
   const [balance, setBalance] = useState<string | null>(null);
   const [tokenBalance, setTokenBalance] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const CONTRACT_ADDRESS = "0x1505d2d340e6199cc65f70745748eC620eF3345a";
 
   const fetchBalance = async () => {
-    if (!isAddress(address)) {
+    if (!isAddress(walletAddress)) {
       setError("Invalid address");
       return;
     }
@@ -18,9 +20,15 @@ const Balance: React.FC = () => {
     if (window.ethereum) {
       const web3 = new Web3(window.ethereum);
       try {
-        const balanceWei = await web3.eth.getBalance(address);
+        const balanceWei = await web3.eth.getBalance(walletAddress);
         const balanceEth = web3.utils.fromWei(balanceWei, "ether");
         setBalance(balanceEth);
+
+        const contract = new web3.eth.Contract(Tickets.abi, CONTRACT_ADDRESS);
+        const tokenBalanceWei = await contract.methods.balanceOf(walletAddress).call();
+        const tokenBalance = web3.utils.fromWei(tokenBalanceWei, "ether");
+        setTokenBalance(tokenBalance);
+
         setError(null);
       } catch (err) {
         setError("Failed to fetch balance");
@@ -28,8 +36,8 @@ const Balance: React.FC = () => {
     }
   };
 
-  const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAddress(event.target.value);
+  const handleWalletAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setWalletAddress(event.target.value);
   };
 
   return (
@@ -39,23 +47,21 @@ const Balance: React.FC = () => {
         <input
           type="text"
           placeholder="Enter wallet address"
-          value={address}
-          onChange={handleAddressChange}
-          className = 'input'
+          value={walletAddress}
+          onChange={handleWalletAddressChange}
+          className="input"
         />
-        <button className = 'button' onClick={fetchBalance}> Wallet Balance</button>
-        <input
-          type="text"
-          value={tokenBalance || ""}
-          placeholder="Enter token address"
-          className = 'input'
-        />
-        <button className ='button' onClick={fetchBalance}>Token Balance</button>
+        <button className="button" onClick={fetchBalance}>
+          Fetch Balances
+        </button>
         {error && <p>Error: {error}</p>}
         {balance !== null ? (
-          <p>Balance: {balance} ETH</p>
+          <p>Wallet Balance: {balance} ETH</p>
         ) : (
-          <p>Enter an address and click "Balance"</p>
+          <p>Enter an address and click "Fetch Balances"</p>
+        )}
+        {tokenBalance !== null && (
+          <p>Token Balance: {tokenBalance} TICKET</p>
         )}
       </div>
     </div>

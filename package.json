@@ -22,7 +22,8 @@
     "react-draft-wysiwyg": "^1.15.0",
     "react-router-dom": "^6.22.0",
     "react-table": "^7.8.0",
-    "web3": "^4.8.0"
+    "web3": "^4.9.0",
+    "web3-core": "^4.4.0"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-waffle": "^2.0.6",

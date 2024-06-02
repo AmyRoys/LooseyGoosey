@@ -1,8 +1,7 @@
 require("@nomiclabs/hardhat-waffle");
 
 const fs = require("fs");
-const infuraId =
-  "https://sepolia.infura.io/v3/c38025e078f74cf99667aa3fa5268998";
+const provider = "https://rpc2.sepolia.org";
 const privateKey =
   "0x52b7ff963067c53efe60f15a4bb1266c512759bbbe076956db71099597f6538f";
 
@@ -19,7 +18,7 @@ module.exports = {
       accounts: [privateKey],
     },
     sepolia: {
-      url: infuraId,
+      url: provider,
       accounts: [privateKey],
     },
   },
