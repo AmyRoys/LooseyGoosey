@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Web3 from "web3";
-import Tickets from "../artifacts/Tickets.json";
+import Tickets from "../artifacts/abi.json";
 import { ethers } from "ethers";
 
 const BuyTicket = () => {
@@ -15,7 +15,7 @@ const BuyTicket = () => {
   const web3 = new Web3(
     new Web3.providers.HttpProvider("https://rpc2.sepolia.org")
   );
-  const CONTRACT_ADDRESS = "0x1505d2d340e6199cc65f70745748eC620eF3345a";
+  const CONTRACT_ADDRESS = "0xef7798343c8d5e4cc4c2b2cf3d1a59267710ebce";
 
   const checkBalance = async () => {
     if (wallet && contract) {
@@ -99,7 +99,6 @@ const BuyTicket = () => {
         setMessage("Ticket price has changed!");
         return;
       }
-      // Check contract balance
       const contractBalance = await web3.eth.getBalance(
         contract.options.address
       );
