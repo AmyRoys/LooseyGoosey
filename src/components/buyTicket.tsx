@@ -12,9 +12,7 @@ const BuyTicket = () => {
   const [password, setPassword] = useState("");
   const [wallet, setWallet] = useState<any | null>(null);
 
-  const web3 = new Web3(
-    new Web3.providers.HttpProvider("https://rpc2.sepolia.org")
-  );
+  const web3 = new Web3("https://rpc2.sepolia.org")
   const CONTRACT_ADDRESS = "0xef7798343c8d5e4cc4c2b2cf3d1a59267710ebce";
 
   const checkBalance = async () => {
@@ -69,10 +67,10 @@ const BuyTicket = () => {
       );
       setWallet(decryptedWallet);
       setMessage("Wallet decrypted successfully!");
-      
+
       web3.eth.accounts.wallet.add(decryptedWallet.privateKey);
       web3.eth.defaultAccount = decryptedWallet.address;
-
+      console.log("Wallet address:", decryptedWallet.address);
     } catch (error) {
       console.error(error);
       setMessage("Error decrypting wallet.");
@@ -86,7 +84,7 @@ const BuyTicket = () => {
       );
       return;
     }
-    try {
+    // try {
       const ticketPrice = await contract.methods.ticketPriceInWei().call();
 
       console.log(
@@ -151,37 +149,39 @@ const BuyTicket = () => {
         signedTx.rawTransaction
       );
 
-      await contract.methods.purchaseTicket(1).send({
-        from: wallet.address,
-        gasPrice: gasPrice,
-        gas: gasLimitHex,
-        value: ticketPriceInWei.toString(),
-      });
-      const ticketBalance = await contract.methods
-        .balanceOf(wallet.address)
-        .call();
-      const decimals = BigInt(await contract.methods.decimals().call());
-      console.log("Ticket balance:", ticketBalance / BigInt(10) ** decimals);
-      setMessage("Ticket purchased successfully!");
-      checkBalance();
-    } catch (error: unknown) {
-      if (typeof error === "object" && error !== null) {
-        // type guard
-        const err = error as { code?: string; message?: string }; // type assertion
-        console.error(err);
-        if (err.code === "INSUFFICIENT_FUNDS") {
-          setMessage("Error purchasing ticket: Insufficient funds.");
-        } else if (err.code === "UNPREDICTABLE_GAS_LIMIT") {
-          setMessage("Error purchasing ticket: Unpredictable gas limit.");
-        } else if (err.message) {
-          setMessage(`Error purchasing ticket: ${err.message}`);
-        } else {
-          setMessage("Error purchasing ticket.");
-        }
-      } else {
-        setMessage("Error purchasing ticket.");
-      }
-    }
+      console.log("Transaction receipt:", receipt);
+
+      // await contract.methods.purchaseTicket(1).send({
+      //   from: wallet.address,
+      //   gasPrice: gasPrice,
+      //   gas: gasLimitHex,
+      //   value: ticketPriceInWei.toString(),
+      // });
+      // const ticketBalance = await contract.methods
+      //   .balanceOf(wallet.address)
+      //   .call();
+      // const decimals = BigInt(await contract.methods.decimals().call());
+      // console.log("Ticket balance:", ticketBalance / BigInt(10) ** decimals);
+      // setMessage("Ticket purchased successfully!");
+      // checkBalance();
+    // } catch (error: unknown) {
+    //   if (typeof error === "object" && error !== null) {
+    //     // type guard
+    //     const err = error as { code?: string; message?: string }; // type assertion
+    //     console.error(err);
+    //     if (err.code === "INSUFFICIENT_FUNDS") {
+    //       setMessage("Error purchasing ticket: Insufficient funds.");
+    //     } else if (err.code === "UNPREDICTABLE_GAS_LIMIT") {
+    //       setMessage("Error purchasing ticket: Unpredictable gas limit.");
+    //     } else if (err.message) {
+    //       setMessage(`Error purchasing ticket: ${err.message}`);
+    //     } else {
+    //       setMessage("Error purchasing ticket.");
+    //     }
+    //   } else {
+    //     setMessage("Error purchasing ticket.");
+    //   }
+    // }
   };
 
   useEffect(() => {

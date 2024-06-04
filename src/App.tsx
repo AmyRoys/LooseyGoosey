@@ -10,25 +10,7 @@ import Events from './components/Events';
 import BuyTicket from './components/buyTicket';
 import Balance from './components/Balance';
 
-const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-
 const App = () => {
-  const [account, setAccount] = useState<string | null>(null);
-
-  useEffect(() => {
-    const loadBlockchainData = async () => {
-      const accounts = await web3.eth.getAccounts();
-      setAccount(accounts[0]);
-    };
-  
-    loadBlockchainData();
-  }, []);
-  
-  useEffect(() => {
-    console.log('account', account);
-  }, [account]);
-
-  console.log('account',account);
 
   return (
     <Router>

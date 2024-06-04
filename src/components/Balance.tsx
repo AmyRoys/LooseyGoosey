@@ -9,7 +9,7 @@ const Balance: React.FC = () => {
   const [balance, setBalance] = useState<string | null>(null);
   const [tokenBalance, setTokenBalance] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const CONTRACT_ADDRESS = "0x1505d2d340e6199cc65f70745748eC620eF3345a";
+  const CONTRACT_ADDRESS = "0xef7798343c8d5e4cc4c2b2cf3d1a59267710ebce";
 
   const fetchBalance = async () => {
     if (!isAddress(walletAddress)) {
@@ -25,6 +25,7 @@ const Balance: React.FC = () => {
         setBalance(balanceEth);
 
         const contract = new web3.eth.Contract(Tickets.abi, CONTRACT_ADDRESS);
+        console.log(walletAddress);
         const tokenBalanceWei = await contract.methods.balanceOf(walletAddress).call();
         const tokenBalance = web3.utils.fromWei(tokenBalanceWei, "ether");
         setTokenBalance(tokenBalance);
