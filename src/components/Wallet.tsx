@@ -3,7 +3,7 @@ import React, { ChangeEvent, useState } from "react";
 import Web3 from "web3";
 import { saveAs } from "file-saver";
 
-let web3: Web3;
+let web3 = new Web3("https://rpc2.sepolia.org");
 
 declare global {
   interface Window {

@@ -166,6 +166,8 @@ const BuyTicket = () => {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          className = 'input'
+          placeholder="Key Store Password"
         />
         <button className="wbutton" onClick={decryptWallet}>
           Decrypt Wallet

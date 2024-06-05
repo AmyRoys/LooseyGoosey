@@ -2,7 +2,7 @@ import "../styles/Balance.css";
 import React, { useState } from "react";
 import Web3 from "web3";
 import { isAddress } from "web3-utils";
-import Tickets from "../artifacts/Tickets.json";
+import Tickets from "../artifacts/abi.json";
 
 const Balance: React.FC = () => {
   const [walletAddress, setWalletAddress] = useState("");

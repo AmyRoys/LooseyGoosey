@@ -122,6 +122,8 @@ const TransferTicket = () => {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          className = 'input'
+          placeholder="Key Store Password"
         />
         <button className="wbutton" onClick={decryptWallet}>
           Decrypt Wallet
@@ -131,19 +133,20 @@ const TransferTicket = () => {
           placeholder="Recipient address"
           value={recipient}
           onChange={(e) => setRecipient(e.target.value)}
+          className = 'input'
         />
         <input
           type="number"
           placeholder="Amount of tickets"
           value={amount}
           onChange={(e) => setAmount(Number(e.target.value))}
+          className = 'input'
         />
         <button className="wbutton" onClick={transferTicket}>
           Transfer Ticket
         </button>
         {message && <p>{message}</p>}
         {transactionStatus && <p>{transactionStatus}</p>}
-        {balance !== null && <p>Your Balance: {balance}</p>}
       </div>
     </div>
   );
