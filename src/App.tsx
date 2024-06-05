@@ -1,6 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import Web3 from 'web3';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import Content from './components/Content';

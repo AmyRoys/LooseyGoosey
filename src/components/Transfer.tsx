@@ -1,25 +1,38 @@
-import "../styles/Transfer.css";
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import Web3 from "web3";
-import Tickets from "../artifacts/Tickets.json";
+import Tickets from "../artifacts/abi.json";
 import { ethers } from "ethers";
 
-const TransferTicketPage: React.FC = () => {
-  const [amount, setAmount] = useState(0);
-  const [recipient, setRecipient] = useState("");
+const TransferTicket = () => {
   const [message, setMessage] = useState("");
+  const [contract, setContract] = useState<any | null>(null);
+  const [recipient, setRecipient] = useState<string>("");
+  const [amount, setAmount] = useState<number>(1);
+  const [balance, setBalance] = useState<number | null>(null);
   const [keystore, setKeystore] = useState<string | null>(null);
   const [password, setPassword] = useState("");
   const [wallet, setWallet] = useState<any | null>(null);
+  const [transactionStatus, setTransactionStatus] = useState("");
 
-  const web3 = new Web3(
-    new Web3.providers.HttpProvider("https://rpc2.sepolia.org")
-  );
-  const CONTRACT_ADDRESS = "0x1505d2d340e6199cc65f70745748eC620eF3345a";
+  const web3 = new Web3("https://rpc2.sepolia.org");
+  const CONTRACT_ADDRESS = "0xef7798343c8d5e4cc4c2b2cf3d1a59267710ebce";
 
-  const handleFileUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const checkBalance = async () => {
+    if (wallet && contract) {
+      const tokenBalance = await contract.methods.balanceOf(wallet.address).call();
+      setBalance(Number(tokenBalance));
+    }
+  };
+
+  useEffect(() => {
+    const loadContract = async () => {
+      const contractInstance = new web3.eth.Contract(Tickets.abi, CONTRACT_ADDRESS);
+      setContract(contractInstance);
+    };
+    loadContract();
+  }, [wallet]);
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       const reader = new FileReader();
@@ -38,58 +51,68 @@ const TransferTicketPage: React.FC = () => {
       return;
     }
     try {
-      const decryptedWallet = await ethers.Wallet.fromEncryptedJson(
-        keystore,
-        password
-      );
+      const decryptedWallet = await ethers.Wallet.fromEncryptedJson(keystore, password);
       setWallet(decryptedWallet);
       setMessage("Wallet decrypted successfully!");
 
       web3.eth.accounts.wallet.add(decryptedWallet.privateKey);
       web3.eth.defaultAccount = decryptedWallet.address;
+      console.log("Wallet address:", decryptedWallet.address);
     } catch (error) {
       console.error(error);
       setMessage("Error decrypting wallet.");
     }
   };
-  const handleTransferTicket = async () => {
-    if (!recipient || amount <= 0 || !keystore || !password) {
-      setMessage(
-        "Please enter a valid recipient, amount, keystore, and password."
-      );
+
+  const transferTicket = async () => {
+    if (!wallet || !wallet.address || !recipient || !contract) {
+      setMessage("Please decrypt your wallet, enter a recipient address, and ensure it has a valid address.");
       return;
     }
-    const reader = new FileReader();
+    try {
+      setTransactionStatus("Transaction pending...");
 
-    reader.onload = async (evt) => {
-      if (evt.target === null) {
-        setMessage("Error reading keystore file.");
-        return;
-      }
-      
-      const keystoreJson = JSON.parse(evt.target.result);
-      try {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = wallet.connect(provider);
-        const contract = new ethers.Contract(
-          CONTRACT_ADDRESS,
-          Tickets.abi,
-          signer
-        );
-        const decimals = await contract.decimals();
-        const actualAmount = ethers.utils.parseUnits(amount.toString(), decimals);
-        const transactionResponse = await contract.transferTicket(
-          recipient,
-          amount
-        );
-        await transactionResponse.wait();
-        setMessage("Ticket transferred successfully!");
-      } catch (error) {
-        console.error("Error transferring ticket:", error);
-        setMessage("Error transferring ticket.");
-      }
-    };
+      const gasPrice = await web3.eth.getGasPrice();
+      console.log("Gas price:", gasPrice);
+
+      const gasEstimate = await contract.methods.transferTicket(recipient, amount).estimateGas({
+        from: wallet.address,
+      });
+      const gasLimit = Math.floor(Number(gasEstimate) * 1.1);
+      const gasLimitHex = web3.utils.toHex(gasLimit);
+
+      console.log("Gas limit:", gasLimitHex);
+
+      const tx = {
+        from: wallet.address,
+        to: CONTRACT_ADDRESS,
+        gas: gasLimitHex,
+        gasPrice: gasPrice,
+        data: contract.methods.transferTicket(recipient, amount).encodeABI(),
+      };
+
+      const signedTx = await web3.eth.accounts.signTransaction(tx, wallet.privateKey);
+
+      web3.eth.sendSignedTransaction(signedTx.rawTransaction)
+        .on("transactionHash", function (hash) {
+          setTransactionStatus(`Transaction successful! Hash: ${hash}`);
+        })
+        .on("error", function (error) {
+          console.error(error);
+          setTransactionStatus("Transaction failed!");
+        });
+    } catch (error) {
+      console.error(error);
+      setTransactionStatus("Error occurred during the transaction.");
+    }
   };
+
+  useEffect(() => {
+    if (wallet && contract) {
+      checkBalance();
+    }
+  }, [wallet, contract]);
+
   return (
     <div>
       <h1 className="h">Transfer Ticket</h1>
@@ -105,25 +128,25 @@ const TransferTicketPage: React.FC = () => {
         </button>
         <input
           type="text"
+          placeholder="Recipient address"
           value={recipient}
           onChange={(e) => setRecipient(e.target.value)}
-          placeholder="Sending to"
-          className="input"
         />
         <input
           type="number"
+          placeholder="Amount of tickets"
           value={amount}
-          onChange={(e) => setAmount(parseInt(e.target.value))}
-          placeholder="Number of tickets"
-          className="input"
+          onChange={(e) => setAmount(Number(e.target.value))}
         />
-        <button className="button" onClick={handleTransferTicket}>
+        <button className="wbutton" onClick={transferTicket}>
           Transfer Ticket
         </button>
         {message && <p>{message}</p>}
+        {transactionStatus && <p>{transactionStatus}</p>}
+        {balance !== null && <p>Your Balance: {balance}</p>}
       </div>
     </div>
   );
 };
 
-export default TransferTicketPage;
+export default TransferTicket;

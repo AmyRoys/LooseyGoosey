@@ -11,8 +11,9 @@ const BuyTicket = () => {
   const [keystore, setKeystore] = useState<string | null>(null);
   const [password, setPassword] = useState("");
   const [wallet, setWallet] = useState<any | null>(null);
+  const [transactionStatus, setTransactionStatus] = useState("");
 
-  const web3 = new Web3("https://rpc2.sepolia.org")
+  const web3 = new Web3("https://rpc2.sepolia.org");
   const CONTRACT_ADDRESS = "0xef7798343c8d5e4cc4c2b2cf3d1a59267710ebce";
 
   const checkBalance = async () => {
@@ -84,104 +85,70 @@ const BuyTicket = () => {
       );
       return;
     }
-    // try {
-      const ticketPrice = await contract.methods.ticketPriceInWei().call();
+    const ticketPrice = await contract.methods.ticketPriceInWei().call();
+    setTransactionStatus("Transaction pending...");
 
-      console.log(
-        "Ticket price",
-        ticketPrice,
-        "ticket price in wei",
-        ticketPriceInWei
-      );
-      if (ticketPrice !== ticketPriceInWei) {
-        setMessage("Ticket price has changed!");
-        return;
-      }
-      const contractBalance = await web3.eth.getBalance(
-        contract.options.address
-      );
-      console.log(
-        "Contract balance:",
-        web3.utils.fromWei(contractBalance, "ether"),
-        "ETH"
-      );
-      try {
-        const nodeInfo = await web3.eth.getNodeInfo();
-        console.log("Connected to node:", nodeInfo);
-      } catch (error) {
-        console.error("Error getting node info:", error);
-      }
-      const gasPrice = await web3.eth.getGasPrice();
-      console.log("Gas price:", gasPrice);
+    console.log(
+      "Ticket price",
+      ticketPrice,
+      "ticket price in wei",
+      ticketPriceInWei
+    );
+    if (ticketPrice !== ticketPriceInWei) {
+      setMessage("Ticket price has changed!");
+      return;
+    }
+    const contractBalance = await web3.eth.getBalance(contract.options.address);
+    console.log(
+      "Contract balance:",
+      web3.utils.fromWei(contractBalance, "ether"),
+      "ETH"
+    );
+    try {
+      const nodeInfo = await web3.eth.getNodeInfo();
+      console.log("Connected to node:", nodeInfo);
+    } catch (error) {
+      console.error("Error getting node info:", error);
+    }
+    const gasPrice = await web3.eth.getGasPrice();
+    console.log("Gas price:", gasPrice);
 
-      // Debugging: Print current wallet balance
-      const walletBalance = await web3.eth.getBalance(wallet.address);
-      console.log(
-        "Wallet balance:",
-        web3.utils.fromWei(walletBalance, "ether"),
-        "ETH"
-      );
+    const walletBalance = await web3.eth.getBalance(wallet.address);
+    console.log(
+      "Wallet balance:",
+      web3.utils.fromWei(walletBalance, "ether"),
+      "ETH"
+    );
 
-      const gasEstimate = await contract.methods.purchaseTicket(1).estimateGas({
-        from: wallet.address,
-        value: ticketPriceInWei.toString(),
+    const gasEstimate = await contract.methods.purchaseTicket(1).estimateGas({
+      from: wallet.address,
+      value: ticketPriceInWei.toString(),
+    });
+    console.log(wallet.address);
+    const gasLimit = Math.floor(Number(gasEstimate) * 1.1);
+    const gasLimitHex = web3.utils.toHex(gasLimit);
+
+    console.log("Gas limit:", gasLimitHex);
+
+    const tx = {
+      from: wallet.address,
+      to: CONTRACT_ADDRESS,
+      gas: gasLimitHex,
+      gasPrice: gasPrice,
+      value: ticketPriceInWei.toString(),
+      data: contract.methods.purchaseTicket(1).encodeABI(),
+    };
+
+    const signedTx = await web3.eth.accounts.signTransaction(
+      tx,
+      wallet.privateKey
+    );
+    
+    web3.eth
+      .sendSignedTransaction(signedTx.rawTransaction)
+      .on("transactionHash", function (hash) {
+        setTransactionStatus(`Transaction successful! Hash: ${hash}`);
       });
-      console.log(wallet.address);
-      const gasLimit = Math.floor(Number(gasEstimate) * 1.1);
-      const gasLimitHex = web3.utils.toHex(gasLimit);
-
-      console.log("Gas limit:", gasLimitHex);
-
-      const tx = {
-        from: wallet.address,
-        to: CONTRACT_ADDRESS,
-        gas: gasLimitHex,
-        gasPrice: gasPrice,
-        value: ticketPriceInWei.toString(),
-        data: contract.methods.purchaseTicket(1).encodeABI(),
-      };
-
-      const signedTx = await web3.eth.accounts.signTransaction(
-        tx,
-        wallet.privateKey
-      );
-      const receipt = await web3.eth.sendSignedTransaction(
-        signedTx.rawTransaction
-      );
-
-      console.log("Transaction receipt:", receipt);
-
-      // await contract.methods.purchaseTicket(1).send({
-      //   from: wallet.address,
-      //   gasPrice: gasPrice,
-      //   gas: gasLimitHex,
-      //   value: ticketPriceInWei.toString(),
-      // });
-      // const ticketBalance = await contract.methods
-      //   .balanceOf(wallet.address)
-      //   .call();
-      // const decimals = BigInt(await contract.methods.decimals().call());
-      // console.log("Ticket balance:", ticketBalance / BigInt(10) ** decimals);
-      // setMessage("Ticket purchased successfully!");
-      // checkBalance();
-    // } catch (error: unknown) {
-    //   if (typeof error === "object" && error !== null) {
-    //     // type guard
-    //     const err = error as { code?: string; message?: string }; // type assertion
-    //     console.error(err);
-    //     if (err.code === "INSUFFICIENT_FUNDS") {
-    //       setMessage("Error purchasing ticket: Insufficient funds.");
-    //     } else if (err.code === "UNPREDICTABLE_GAS_LIMIT") {
-    //       setMessage("Error purchasing ticket: Unpredictable gas limit.");
-    //     } else if (err.message) {
-    //       setMessage(`Error purchasing ticket: ${err.message}`);
-    //     } else {
-    //       setMessage("Error purchasing ticket.");
-    //     }
-    //   } else {
-    //     setMessage("Error purchasing ticket.");
-    //   }
-    // }
   };
 
   useEffect(() => {
@@ -208,6 +175,7 @@ const BuyTicket = () => {
           Buy Ticket
         </button>
         {message && <p>{message}</p>}
+        {transactionStatus && <p>{transactionStatus}</p>}
       </div>
     </div>
   );

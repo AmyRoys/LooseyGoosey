@@ -10,13 +10,6 @@ module.exports = {
     hardhat: {
       chainId: 1337,
     },
-    localhost: {
-      url: "http://127.0.0.1:8545",
-    },
-    ganache: {
-      url: "http://127.0.0.1:8545",
-      accounts: [privateKey],
-    },
     sepolia: {
       url: provider,
       accounts: [privateKey],

@@ -1,5 +1,5 @@
 import "../styles/Wallet.css";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import Web3 from "web3";
 import { saveAs } from "file-saver";
 
@@ -23,34 +23,6 @@ const CreateWallet: React.FC = () => {
   const [uploadedKeystore, setUploadedKeystore] = useState<File | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [balance, setBalance] = useState("");
-
-  useEffect(() => {
-    const connectMetamask = async () => {
-      if (window.ethereum) {
-        try {
-          // Request account access
-          const accounts = await window.ethereum.request({
-            method: "eth_requestAccounts",
-          });
-          if (accounts.length === 0) {
-            console.error(
-              "No accounts found. Please make sure you're logged in to MetaMask."
-            );
-          } else {
-            web3 = new Web3(window.ethereum);
-          }
-        } catch (error) {
-          console.error("User denied account access:", error);
-          web3 = new Web3();
-        }
-      } else {
-        console.error("MetaMask is not installed.");
-        web3 = new Web3();
-      }
-    };
-
-    connectMetamask();
-  }, []);
 
   const handleCreateWallet = async () => {
     if (createPassword === "") {
