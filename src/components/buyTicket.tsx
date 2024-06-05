@@ -93,21 +93,51 @@ const BuyTicket = () => {
     const ticketPrice = await contract.methods.ticketPriceInWei().call();
     setTransactionStatus("Transaction pending...");
 
+    console.log(
+      "Ticket price",
+      ticketPrice,
+      "ticket price in wei",
+      ticketPriceInWei
+    );
+
     // Error handling for ticket price change
     if (ticketPrice !== ticketPriceInWei) {
       setMessage("Ticket price has changed!");
       return;
     }
-    
+    const contractBalance = await web3.eth.getBalance(contract.options.address);
+    console.log(
+      "Contract balance:",
+      web3.utils.fromWei(contractBalance, "ether"),
+      "ETH"
+    );
+    try {
+      const nodeInfo = await web3.eth.getNodeInfo();
+      console.log("Connected to node:", nodeInfo);
+    } catch (error) {
+      console.error("Error getting node info:", error);
+    }
     const gasPrice = await web3.eth.getGasPrice();
+    console.log("Gas price:", gasPrice);
+
+    const walletBalance = await web3.eth.getBalance(wallet.address);
+    console.log(
+      "Wallet balance:",
+      web3.utils.fromWei(walletBalance, "ether"),
+      "ETH"
+    );
 
     const gasEstimate = await contract.methods.purchaseTicket(1).estimateGas({
       from: wallet.address,
       value: ticketPriceInWei.toString(),
     });
 
+    console.log(wallet.address);
+
     const gasLimit = Math.floor(Number(gasEstimate) * 1.1);
     const gasLimitHex = web3.utils.toHex(gasLimit);
+
+    console.log( "Gas Limit:", gasLimit)
 
     const tx = {
       from: wallet.address,
@@ -118,12 +148,12 @@ const BuyTicket = () => {
       data: contract.methods.purchaseTicket(1).encodeABI(),
     };
 
-    // Signs the transaction so the account is validated 
+    // Signs the transaction so the account is validated
     const signedTx = await web3.eth.accounts.signTransaction(
       tx,
       wallet.privateKey
     );
-    
+
     web3.eth
       .sendSignedTransaction(signedTx.rawTransaction)
       .on("transactionHash", function (hash) {
@@ -146,7 +176,7 @@ const BuyTicket = () => {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className = 'input'
+          className="input"
           placeholder="Key Store Password"
         />
         <button className="wbutton" onClick={decryptWallet}>
