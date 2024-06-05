@@ -14,9 +14,11 @@ const TransferTicket = () => {
   const [wallet, setWallet] = useState<any | null>(null);
   const [transactionStatus, setTransactionStatus] = useState("");
 
+  // set web3 provider
   const web3 = new Web3("https://rpc2.sepolia.org");
   const CONTRACT_ADDRESS = "0xef7798343c8d5e4cc4c2b2cf3d1a59267710ebce";
 
+  // Check the balance of the wallet
   const checkBalance = async () => {
     if (wallet && contract) {
       const tokenBalance = await contract.methods.balanceOf(wallet.address).call();
@@ -46,6 +48,7 @@ const TransferTicket = () => {
   };
 
   const decryptWallet = async () => {
+    // Decrypt the wallet using the keystore and password
     if (!keystore || !password) {
       setMessage("Please upload your keystore file and enter your password.");
       return;
@@ -73,15 +76,13 @@ const TransferTicket = () => {
       setTransactionStatus("Transaction pending...");
 
       const gasPrice = await web3.eth.getGasPrice();
-      console.log("Gas price:", gasPrice);
 
       const gasEstimate = await contract.methods.transferTicket(recipient, amount).estimateGas({
         from: wallet.address,
       });
+
       const gasLimit = Math.floor(Number(gasEstimate) * 1.1);
       const gasLimitHex = web3.utils.toHex(gasLimit);
-
-      console.log("Gas limit:", gasLimitHex);
 
       const tx = {
         from: wallet.address,
@@ -93,6 +94,7 @@ const TransferTicket = () => {
 
       const signedTx = await web3.eth.accounts.signTransaction(tx, wallet.privateKey);
 
+      // Send the signed transaction and fetch hash on success
       web3.eth.sendSignedTransaction(signedTx.rawTransaction)
         .on("transactionHash", function (hash) {
           setTransactionStatus(`Transaction successful! Hash: ${hash}`);

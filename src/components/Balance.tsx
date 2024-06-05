@@ -20,10 +20,12 @@ const Balance: React.FC = () => {
     if (window.ethereum) {
       const web3 = new Web3(window.ethereum);
       try {
+        // Request account access if needed
         const balanceWei = await web3.eth.getBalance(walletAddress);
         const balanceEth = web3.utils.fromWei(balanceWei, "ether");
         setBalance(balanceEth);
-
+        
+        // Fetch token balance from contract instance
         const contract = new web3.eth.Contract(Tickets.abi, CONTRACT_ADDRESS);
         console.log(walletAddress);
         const tokenBalanceWei = await contract.methods.balanceOf(walletAddress).call();
@@ -36,7 +38,6 @@ const Balance: React.FC = () => {
       }
     }
   };
-
   const handleWalletAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setWalletAddress(event.target.value);
   };

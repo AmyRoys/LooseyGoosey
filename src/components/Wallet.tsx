@@ -3,6 +3,7 @@ import React, { ChangeEvent, useState } from "react";
 import Web3 from "web3";
 import { saveAs } from "file-saver";
 
+// Connect to the Ethereum network
 let web3 = new Web3("https://rpc2.sepolia.org");
 
 declare global {
@@ -30,6 +31,7 @@ const CreateWallet: React.FC = () => {
       return;
     }
 
+    // Create a new wallet using the web3 library
     const wallet = web3.eth.accounts.create();
 
     setCreateAddress(wallet.address);
@@ -45,6 +47,7 @@ const CreateWallet: React.FC = () => {
   };
 
   const handleDownloadKeystore = () => {
+    // error handling for missing keystore or address
     if (!keystore || !createAddress) {
       alert("Please create a wallet first");
       return;
@@ -62,6 +65,7 @@ const CreateWallet: React.FC = () => {
   };
 
   const handleLoadWallet = () => {
+    // error handling for missing password or keystore
     if (loadPassword === "" || uploadedKeystore === null) {
       alert("Please upload a Key Store and enter the password.");
       return;
@@ -72,6 +76,7 @@ const CreateWallet: React.FC = () => {
       const keystoreContent = event.target?.result as string;
 
       try {
+        // Decrypt the keystore using the password
         const decryptedWallet = await web3.eth.accounts.decrypt(
           JSON.parse(keystoreContent),
           loadPassword

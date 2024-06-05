@@ -6,6 +6,7 @@ import gooseHead from '../assets/goosehead.png';
 
 const Navbar: React.FC = () => {
 
+  // Renders the navigation bar for the whole application
 
   return (
     <header className='topbar'>
