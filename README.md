@@ -31,7 +31,7 @@ The application will start and can be accessed at `http://localhost:5173/`.
 
 ## Testing
 ---
-Tests are located in the `test` directory
+Tests are located in the `test` directory.
 To run the tests, stay in the root directory and run the command `npx hardhat test`.
 
 
